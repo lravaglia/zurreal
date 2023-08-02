@@ -107,14 +107,24 @@ suite("numbers", async () => {
       /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE int ASSERT $value != NONE AND $value != NULL;`
     );
   });
-  test("min", async () => {
-    expect(await field(tableName, fieldName, z.number().min(5))).toMatch(
+  test("exclusive min", async () => {
+    expect(await field(tableName, fieldName, z.number().gt(5))).toMatch(
       /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL AND $value > 5;`
     );
   });
-  test("max", async () => {
-    expect(await field(tableName, fieldName, z.number().max(5))).toMatch(
+  test("exclusive max", async () => {
+    expect(await field(tableName, fieldName, z.number().lt(5))).toMatch(
       /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL AND $value < 5;`
+    );
+  });
+  test("inclusive min", async () => {
+    expect(await field(tableName, fieldName, z.number().gte(5))).toMatch(
+      /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL AND $value >= 5;`
+    );
+  });
+  test("inclusive max", async () => {
+    expect(await field(tableName, fieldName, z.number().lte(5))).toMatch(
+      /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL AND $value <= 5;`
     );
   });
   test("throws on umplimented extension", () => {

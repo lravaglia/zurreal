@@ -45,9 +45,13 @@ const field = async (
       ...checks.map((c) => {
         switch (c.kind) {
           case "min":
-            return /* surrealql */ `$value > ${c.value}`;
+            return /* surrealql */ `$value ${c.inclusive ? ">=" : ">"} ${
+              c.value
+            }`;
           case "max":
-            return /* surrealql */ `$value < ${c.value}`;
+            return /* surrealql */ `$value ${c.inclusive ? "<=" : "<"} ${
+              c.value
+            }`;
           case "multipleOf":
             throw new Error("not supported");
           case "finite":
