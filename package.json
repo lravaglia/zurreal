@@ -1,6 +1,6 @@
 {
   "name": "zurreal",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "type": "module",
   "license": "LGPL-3.0-or-later",
   "description": "Define your Surrealdb schema using your zod types.",
