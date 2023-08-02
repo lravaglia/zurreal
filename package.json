@@ -1,0 +1,48 @@
+{
+  "name": "zurreal",
+  "version": "0.0.1",
+  "type": "module",
+  "license": "LGPL-3.0-or-later",
+  "description": "Define your Surrealdb schema using your zod types.",
+  "homepage": "https://lravaglia.github.io/zurreal",
+  "keywords": [
+    "zod",
+    "surrealdb"
+  ],
+  "author": {
+    "name": "Lorenzo Ravaglia",
+    "email": "lorenzo.ravaglia@hope.edu",
+    "url": "https://lorenzo.ravaglia.xyz"
+  },
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lravaglia/zurreal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lravaglia/zurreal/issues"
+  },
+  "module": "./lib/index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "files": [
+    "/lib",
+    "/index.d.ts"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "surrealdb.js": "^0.8.3",
+    "typescript": "^5.1.6",
+    "zod": "^3.21.4"
+  },
+  "peerDependencies": {
+    "surrealdb.js": "^0.8.3",
+    "zod": "^3.21.4"
+  }
+}

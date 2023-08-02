@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "skipLibCheck": true,
+        "lib": ["ESNext"],
+        "target": "ES2018",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext",
+        "outDir": "./lib",
+        "declaration": true
+    },
+    "include": ["./src/**/*"]
+}
