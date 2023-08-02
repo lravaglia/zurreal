@@ -30,21 +30,28 @@ const field = async (
           case "uuid":
             return /* surrealql */ `is::uuid($value)`;
           default:
-            throw new Error();
+            throw new Error("unknown contraint");
         }
       })
     );
   } else if (primitive instanceof z.ZodNumber) {
-    const checks = primitive._def.checks.filter((c) => c.kind != "int");
-
+    const checks = primitive._def.checks.filter(
+      (c) => c.kind != "int"
+    ) as Exclude<z.ZodNumberCheck, { kind: "int"; message?: string }>[];
     if (checks.length != primitive._def.checks.length) type = "int";
     else type = "float";
 
     assertions.push(
       ...checks.map((c) => {
         switch (c.kind) {
-          default:
-            throw new Error();
+          case "min":
+            return /* surrealql */ `$value > ${c.value}`;
+          case "max":
+            return /* surrealql */ `$value < ${c.value}`;
+          case "multipleOf":
+            throw new Error("not supported");
+          case "finite":
+            throw new Error("not supported");
         }
       })
     );

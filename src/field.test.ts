@@ -42,7 +42,7 @@ suite("null and undefined", async () => {
   });
 });
 
-suite("strings", () => {
+suite("strings", async () => {
   test("basic string", async () => {
     expect(await field(tableName, fieldName, z.string())).toMatch(
       /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE string ASSERT $value != NONE AND $value != NULL;`
@@ -83,12 +83,16 @@ suite("strings", () => {
     );
   });
 
-  suite("combinations", async () => {
-    test("minimum and maxium", async () => {
-      expect(await field(tableName, fieldName, z.string().min(3).max(4))).toBe(
-        /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE string ASSERT $value != NONE AND $value != NULL AND string::len($value) > 3 AND string::len($value) < 4;`
-      );
-    });
+  test("combinations", async () => {
+    expect(await field(tableName, fieldName, z.string().min(3).max(4))).toBe(
+      /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE string ASSERT $value != NONE AND $value != NULL AND string::len($value) > 3 AND string::len($value) < 4;`
+    );
+  });
+
+  test("throws on umplimented extensions", () => {
+    expect(() =>
+      field(tableName, fieldName, z.string().url())
+    ).rejects.toThrowError();
   });
 });
 
@@ -103,10 +107,34 @@ suite("numbers", async () => {
       /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE int ASSERT $value != NONE AND $value != NULL;`
     );
   });
+  test("min", async () => {
+    expect(await field(tableName, fieldName, z.number().min(5))).toMatch(
+      /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL AND $value > 5;`
+    );
+  });
+  test("max", async () => {
+    expect(await field(tableName, fieldName, z.number().max(5))).toMatch(
+      /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL AND $value < 5;`
+    );
+  });
+  test("throws on umplimented extension", () => {
+    expect(() =>
+      field(tableName, fieldName, z.number().finite())
+    ).rejects.toThrowError();
+    expect(() =>
+      field(tableName, fieldName, z.number().multipleOf(5))
+    ).rejects.toThrowError();
+  });
 });
 
 test("booleans", async () => {
   expect(await field(tableName, fieldName, z.boolean())).toMatch(
     /* surrealql */ `DEFINE FIELD ${fieldName} ON ${tableName} TYPE bool ASSERT $value != NONE AND $value != NULL;`
   );
+});
+
+test("throws on unrecognized type", () => {
+  expect(() =>
+    field(tableName, fieldName, z.enum(["a", "b"]))
+  ).rejects.toThrowError();
 });
