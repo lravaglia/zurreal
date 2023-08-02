@@ -1,5 +1,6 @@
 import { Surreal } from "surrealdb.js";
 import { z } from "zod";
+import table from "@/table";
 
 export default class Zurreal extends Surreal {
   /**
@@ -9,5 +10,7 @@ export default class Zurreal extends Surreal {
    */
   public async defineTableSchemas(
     tables: { name: string; schema: z.AnyZodObject }[]
-  ) {}
+  ) {
+    tables.map(({ name, schema }) => table(name, schema));
+  }
 }

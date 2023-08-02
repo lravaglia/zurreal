@@ -1,5 +1,5 @@
 import { expect, test, suite } from "vitest";
-import field from "./field";
+import field from "@/field";
 import { z } from "zod";
 
 const tableName = "table";

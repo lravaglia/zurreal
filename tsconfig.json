@@ -4,12 +4,11 @@
         "skipLibCheck": true,
         "lib": ["ESNext"],
         "target": "ES2018",
+        "moduleResolution": "Node",
+        "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"]
         },
-        "moduleResolution": "NodeNext",
-        "module": "NodeNext"
     },
-    "include": ["./src/**/*"],
-    "exclude": ["./src/**/*.test.ts"]
+    "include": ["./src/**/*"]
 }
