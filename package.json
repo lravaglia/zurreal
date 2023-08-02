@@ -1,6 +1,6 @@
 {
   "name": "zurreal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "license": "LGPL-3.0-or-later",
   "description": "Define your Surrealdb schema using your zod types.",
@@ -22,27 +22,35 @@
   "bugs": {
     "url": "https://github.com/lravaglia/zurreal/issues"
   },
-  "module": "./lib/index.js",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "module": "./dist/zurreal.js",
+  "main": "./dist/zurreal.umd.cjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "import": "./dist/zurreal.js",
+      "require": "./dist/zurreal.umd.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
-    "/lib",
-    "/index.d.ts"
+    "/dist"
   ],
-  "scripts": {},
+  "scripts": {
+    "test": "vitest",
+    "dev": "vite dev",
+    "build": "vite build"
+  },
   "devDependencies": {
     "surrealdb.js": "^0.8.3",
     "typescript": "^5.1.6",
+    "vite": "^4.4.8",
+    "vite-plugin-dts": "^3.4.0",
+    "vitest": "^0.34.1",
     "zod": "^3.21.4"
   },
   "peerDependencies": {
     "surrealdb.js": "^0.8.3",
+    "typescript": "^5.1.6",
     "zod": "^3.21.4"
   }
 }
