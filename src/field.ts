@@ -5,10 +5,10 @@ const field = async (
   field: string,
   primitive: z.ZodTypeAny,
   optional = false,
-  nullable = false
+  nullable = false,
 ): Promise<string> => {
   let type: string = "";
-  let assertions: string[] = [];
+  const assertions: string[] = [];
   if (primitive.isNullable() || primitive.isOptional())
     throw new Error("use positional parameters rather than wrapper types");
 
@@ -32,11 +32,11 @@ const field = async (
           default:
             throw new Error("unknown contraint");
         }
-      })
+      }),
     );
   } else if (primitive instanceof z.ZodNumber) {
     const checks = primitive._def.checks.filter(
-      (c) => c.kind != "int"
+      (c) => c.kind != "int",
     ) as Exclude<z.ZodNumberCheck, { kind: "int"; message?: string }>[];
     if (checks.length != primitive._def.checks.length) type = "int";
     else type = "float";
@@ -57,7 +57,7 @@ const field = async (
           case "finite":
             throw new Error("not supported");
         }
-      })
+      }),
     );
   } else if (primitive instanceof z.ZodBoolean) type = "bool";
   else throw new Error("unrecognized type");

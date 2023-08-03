@@ -9,10 +9,10 @@ export default class Zurreal extends Surreal {
    * @requires The connection MUST have a user logged in with the authority to create tables to the desired database.
    */
   public async defineTableSchemas(
-    tables: { name: string; schema: z.AnyZodObject }[]
+    tables: { name: string; schema: z.AnyZodObject }[],
   ) {
     const schemas = await Promise.all(
-      tables.map(({ name, schema }) => table(name, schema))
+      tables.map(({ name, schema }) => table(name, schema)),
     );
     await Promise.all(schemas.map((s) => this.query(s)));
   }

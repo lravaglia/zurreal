@@ -1,14 +1,14 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "skipLibCheck": true,
-        "lib": ["ESNext"],
-        "target": "ES2018",
-        "moduleResolution": "Node",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./src/*"]
-        },
-    },
-    "include": ["./src/**/*"]
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext"],
+    "target": "ES2018",
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["./src/**/*"]
 }

@@ -13,8 +13,8 @@ test("basic object", async () => {
         floatName: z.number(),
         intName: z.number().int(),
         boolName: z.boolean(),
-      })
-    )
+      }),
+    ),
   ).toMatch(/* surrealql */ `DEFINE TABLE ${tableName} SCHEMAFULL;
 DEFINE FIELD stringName ON ${tableName} TYPE string ASSERT $value != NONE AND $value != NULL;
 DEFINE FIELD floatName ON ${tableName} TYPE float ASSERT $value != NONE AND $value != NULL;
